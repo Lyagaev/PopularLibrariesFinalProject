@@ -6,5 +6,6 @@ import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface FactDayView: MvpView {
+    fun init()
     fun setTextView(text: String)
 }

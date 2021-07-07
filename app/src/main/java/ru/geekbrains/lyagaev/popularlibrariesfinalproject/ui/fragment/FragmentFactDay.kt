@@ -20,16 +20,17 @@ class FragmentFactDay : MvpAppCompatFragment(), FactDayView, BackButtonListener 
         FactDayPresenter(App.instance.router, FactDayRepo())
     }
 
-   override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        vb?.btnNewFact?.setOnClickListener { presenter.buttonOneClick() }
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
         FragmentFactDayBinding.inflate(inflater, container, false).also {
             vb = it
         }.root
+
+    override fun init() {
+        vb?.btnNewFact?.setOnClickListener {
+            presenter.buttonOneClick()
+        }
+    }
 
     override fun setTextView(text: String) {
         vb?.tvFactDay?.text = text
