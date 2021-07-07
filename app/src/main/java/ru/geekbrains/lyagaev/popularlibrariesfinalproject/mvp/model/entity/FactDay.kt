@@ -5,5 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class FactDay(
-    val textFactDay: String
+    val text: String,
+    val year: String,
+    val number: String
 ) : Parcelable

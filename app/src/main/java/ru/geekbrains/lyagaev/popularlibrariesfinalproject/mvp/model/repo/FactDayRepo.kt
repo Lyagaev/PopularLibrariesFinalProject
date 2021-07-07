@@ -5,12 +5,12 @@ import ru.geekbrains.lyagaev.popularlibrariesfinalproject.mvp.model.entity.FactD
 class FactDayRepo {
 
     private val repositories = listOf(
-        FactDay("login1"),
-        FactDay("login2"),
-        FactDay("login3"),
-        FactDay("login4"),
-        FactDay("login5"),
-        FactDay("login6")
+        FactDay("login1", "", ""),
+        FactDay("login2", "", ""),
+        FactDay("login3", "", ""),
+        FactDay("login4", "", ""),
+        FactDay("login5", "", ""),
+        FactDay("login6", "", "")
     )
 
     fun getUsers(): List<FactDay> {
