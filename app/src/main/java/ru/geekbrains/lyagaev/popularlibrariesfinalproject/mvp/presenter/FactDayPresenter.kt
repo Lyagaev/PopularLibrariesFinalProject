@@ -3,6 +3,7 @@ package ru.geekbrains.lyagaev.popularlibrariesfinalproject.mvp.presenter
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
+import ru.geekbrains.lyagaev.popularlibrariesfinalproject.mvp.model.entity.FactDay
 import ru.geekbrains.lyagaev.popularlibrariesfinalproject.mvp.model.repo.FactDayRepo
 import ru.geekbrains.lyagaev.popularlibrariesfinalproject.mvp.model.repo.RetrofitFactDayRepo
 import ru.geekbrains.lyagaev.popularlibrariesfinalproject.mvp.view.FactDayView
@@ -31,8 +32,7 @@ class FactDayPresenter(
         factDayRepoRetrofit.getDateFact()
             .observeOn(mainThreadScheduler)
             .subscribe({ repos ->
-
-                viewState.setTextView(text = repos.number)
+                viewState.setTextView(repos.text)
             }, {
                 println("Error: ${it.message}")
             })
