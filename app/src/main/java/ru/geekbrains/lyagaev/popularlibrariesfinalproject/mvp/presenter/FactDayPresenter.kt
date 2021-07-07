@@ -24,8 +24,7 @@ class FactDayPresenter(
 
 
     fun buttonOneClick() {
-        val nextValue = factDayRepo.getUsers()
-        viewState.setTextView(nextValue[0].text)
+        loadData()
     }
 
     fun loadData() {
