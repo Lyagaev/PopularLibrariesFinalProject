@@ -3,6 +3,7 @@ package ru.geekbrains.lyagaev.popularlibrariesfinalproject.ui
 import android.app.Application
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
+import ru.geekbrains.lyagaev.popularlibrariesfinalproject.room.db.Database
 
 class App : Application() {
 
@@ -17,6 +18,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        Database.create(this)
     }
 
     val navigatorHolder

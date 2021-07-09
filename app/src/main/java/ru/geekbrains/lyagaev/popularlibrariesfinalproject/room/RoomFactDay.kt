@@ -6,6 +6,7 @@ import java.sql.Date
 
 @Entity
 class RoomFactDay(
-    var text: String,
-    var date: Date
+    @PrimaryKey (autoGenerate = true)
+    var id : Long,
+    var text: String
 )

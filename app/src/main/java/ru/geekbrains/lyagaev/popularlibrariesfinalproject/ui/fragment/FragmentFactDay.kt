@@ -3,13 +3,14 @@ package ru.geekbrains.lyagaev.popularlibrariesfinalproject.ui.fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.geekbrains.lyagaev.popularlibrariesfinalproject.R
+import ru.geekbrains.lyagaev.popularlibrariesfinalproject.adapter.FactDayRVAdapter
 import ru.geekbrains.lyagaev.popularlibrariesfinalproject.databinding.FragmentFactDayBinding
 import ru.geekbrains.lyagaev.popularlibrariesfinalproject.mvp.model.numbersApi.ApiHolder
-import ru.geekbrains.lyagaev.popularlibrariesfinalproject.mvp.model.repo.FactDayRepo
 import ru.geekbrains.lyagaev.popularlibrariesfinalproject.mvp.model.repo.RetrofitFactDayRepo
 import ru.geekbrains.lyagaev.popularlibrariesfinalproject.mvp.presenter.FactDayPresenter
 import ru.geekbrains.lyagaev.popularlibrariesfinalproject.mvp.view.FactDayView
@@ -31,6 +32,7 @@ class FragmentFactDay : MvpAppCompatFragment(), FactDayView, BackButtonListener 
             RoomFactDayCache(Database.getInstance())
         )
     }
+    var adapter: FactDayRVAdapter? = null
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
@@ -39,6 +41,10 @@ class FragmentFactDay : MvpAppCompatFragment(), FactDayView, BackButtonListener 
         }.root
 
     override fun init() {
+        vb?.rvSave?.layoutManager = LinearLayoutManager(context)
+        adapter = FactDayRVAdapter(presenter.factDayListPresenter)
+        vb?.rvSave?.adapter = adapter
+
         vb?.btnNewFact?.setOnClickListener {
             presenter.buttonOneClick()
         }
@@ -55,6 +61,10 @@ class FragmentFactDay : MvpAppCompatFragment(), FactDayView, BackButtonListener 
 
     override fun setTextView(text: String) {
         vb?.tvFactDay?.text = text
+    }
+
+    override fun updateList() {
+        adapter?.notifyDataSetChanged()
     }
 
 

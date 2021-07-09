@@ -36,7 +36,7 @@ interface FactDayDao {
     @Query("SELECT * FROM RoomFactDay")
     fun getAll(): List<RoomFactDay>
 
-    @Query("SELECT * FROM RoomFactDay WHERE date = :day LIMIT 1")
-    fun findByDay(day: Date): List<RoomFactDay>
+    @Query("SELECT * FROM RoomFactDay WHERE id = :id LIMIT 1")
+    fun findByDay(id: Int): List<RoomFactDay>
 }
 

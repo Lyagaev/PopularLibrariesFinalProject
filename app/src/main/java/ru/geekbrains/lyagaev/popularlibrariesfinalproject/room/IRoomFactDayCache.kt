@@ -1,9 +1,11 @@
 package ru.geekbrains.lyagaev.popularlibrariesfinalproject.room
 
 import io.reactivex.rxjava3.core.Completable
-import java.sql.Date
+import io.reactivex.rxjava3.core.Single
 
 interface IRoomFactDayCache {
-    fun putFactDay(text: String, date: Date) : Completable
+    fun getFactDay(): Single<List<String>>
+
+    fun putFactDay(id: Long, text: String) : Completable
 
 }

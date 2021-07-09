@@ -9,5 +9,5 @@ import moxy.viewstate.strategy.StateStrategyType
 interface FactDayView: MvpView {
     fun init()
     fun setTextView(text: String)
-
+    fun updateList()
 }
