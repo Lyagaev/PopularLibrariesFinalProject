@@ -1,6 +1,8 @@
 package ru.geekbrains.lyagaev.popularlibrariesfinalproject.ui.activity
 
 import android.os.Bundle
+import com.github.terrakok.cicerone.NavigatorHolder
+import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
@@ -11,15 +13,28 @@ import ru.geekbrains.lyagaev.popularlibrariesfinalproject.mvp.view.MainView
 import ru.geekbrains.lyagaev.popularlibrariesfinalproject.ui.App
 import ru.geekbrains.lyagaev.popularlibrariesfinalproject.ui.BackButtonListener
 import ru.geekbrains.poplib.navigation.AndroidScreens
+import javax.inject.Inject
 
 class MainActivity : MvpAppCompatActivity(), MainView {
     private var vb: ActivityMainBinding? = null
 
-    val navigatorHolder = App.instance.navigatorHolder
-    val navigator = AppNavigator(this, R.id.container)
+    //private val navigatorHolder = App.instance.navigatorHolder
+    private val navigator = AppNavigator(activity = this, R.id.container)
 
-    val presenter by moxyPresenter {
-        MainPresenter(App.instance.router, AndroidScreens())
+    /*@Inject
+    lateinit var router: Router*/
+
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
+
+   /* @Inject
+    lateinit var navigatorHolder: NavigatorHolder
+
+    private val navigator = AppNavigator(this, R.id.container)
+    @Inject lateinit var router: Router*/
+
+    private val presenter by moxyPresenter {
+        MainPresenter( AndroidScreens())
     }
 
 
@@ -27,6 +42,8 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         super.onCreate(savedInstanceState)
         vb = ActivityMainBinding.inflate(layoutInflater)
         setContentView(vb?.root)
+
+        App.instance.appComponent.inject(this)
     }
 
     override fun onResumeFragments() {

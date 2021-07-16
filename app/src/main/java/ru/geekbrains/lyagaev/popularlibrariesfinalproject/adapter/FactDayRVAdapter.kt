@@ -11,7 +11,6 @@ class FactDayRVAdapter(private val presenter: IFactDayListPresenter) : RecyclerV
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(RvItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)).apply {
-            //itemView.setOnClickListener { presenter.itemClickListener?.invoke(this) }
         }
 
     override fun getItemCount() = presenter.getCount()
