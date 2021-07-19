@@ -8,7 +8,7 @@ import ru.geekbrains.lyagaev.popularlibrariesfinalproject.mvp.model.entity.FactD
 import ru.geekbrains.lyagaev.popularlibrariesfinalproject.room.db.Database
 
 
-class RoomFactDayCache(val db: Database) : IRoomFactDayCache {
+class RoomFactDayCache(private val db: Database) : IRoomFactDayCache {
 
     override fun getFactDay(): Single<List<String>> = Single.fromCallable{
         db.factDayDao.getAll().map { factDay ->

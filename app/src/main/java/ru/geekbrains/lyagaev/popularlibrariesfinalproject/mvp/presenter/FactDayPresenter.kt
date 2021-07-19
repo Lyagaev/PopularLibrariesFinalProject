@@ -2,20 +2,26 @@ package ru.geekbrains.lyagaev.popularlibrariesfinalproject.mvp.presenter
 
 import android.util.Log
 import com.github.terrakok.cicerone.Router
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 import ru.geekbrains.lyagaev.popularlibrariesfinalproject.mvp.model.repo.IFactDayRepo
 import ru.geekbrains.lyagaev.popularlibrariesfinalproject.mvp.view.FactDayItemView
 import ru.geekbrains.lyagaev.popularlibrariesfinalproject.mvp.view.FactDayView
 import ru.geekbrains.lyagaev.popularlibrariesfinalproject.room.IRoomFactDayCache
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 
 class FactDayPresenter(
-    val mainThreadScheduler: Scheduler,
-    val factDayRepoRetrofit: IFactDayRepo,
-    val router: Router,
-    val cache: IRoomFactDayCache
+    private val mainThreadScheduler: Scheduler,
+    private val factDayRepoRetrofit: IFactDayRepo,
+    private val router: Router,
+    private val cache: IRoomFactDayCache
 )
     : MvpPresenter<FactDayView>() {
 
@@ -30,6 +36,9 @@ class FactDayPresenter(
         }
     }
 
+    var disposableLoadDataCache: Disposable? = null
+    var disposableLoadData: Disposable? = null
+    var disposa: Disposable? = null
     var factDayListPresenter = UsersListPresenter()
     var factDayPresenter = ""
 
@@ -40,7 +49,7 @@ class FactDayPresenter(
     }
 
     private fun loadDataCache() {
-        //disposable =
+        disposableLoadDataCache =
             cache
                 .getFactDay().subscribeOn(Schedulers.io())
                 .observeOn(mainThreadScheduler)
@@ -62,11 +71,14 @@ class FactDayPresenter(
     }
 
     fun saveInDB() {
-       cache.putFactDay(0, factDayPresenter).toSingleDefault(factDayPresenter)
+        disposa = cache.putFactDay(0, factDayPresenter)
+           .toSingleDefault(factDayPresenter)
+           .subscribe()
     }
 
+
     private fun loadData() {
-        factDayRepoRetrofit.getDateFact()
+        disposableLoadData = factDayRepoRetrofit.getDateFact()
             .observeOn(mainThreadScheduler)
             .subscribe({ repos ->
                 factDayPresenter=repos.text
@@ -76,6 +88,12 @@ class FactDayPresenter(
             })
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        disposableLoadDataCache?.dispose()
+        disposableLoadData?.dispose()
+        disposa?.dispose()
+    }
 
     fun backClick(): Boolean {
         router.exit()

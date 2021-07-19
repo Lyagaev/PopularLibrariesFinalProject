@@ -11,7 +11,7 @@ import ru.geekbrains.lyagaev.popularlibrariesfinalproject.room.RoomFactDay
     abstract val factDayDao: FactDayDao
 
     companion object {
-        private const val DB_NAME = "database.db"
+        const val DB_NAME = "database.db"
         private var instance: Database? = null
         fun getInstance() = instance
             ?: throw RuntimeException("Database has not been created. Please call create(context)")

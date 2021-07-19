@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -18,21 +19,26 @@ import ru.geekbrains.lyagaev.popularlibrariesfinalproject.room.RoomFactDayCache
 import ru.geekbrains.lyagaev.popularlibrariesfinalproject.room.db.Database
 import ru.geekbrains.lyagaev.popularlibrariesfinalproject.ui.App
 import ru.geekbrains.lyagaev.popularlibrariesfinalproject.ui.BackButtonListener
+import javax.inject.Inject
 
 
 class FragmentFactDay : MvpAppCompatFragment(), FactDayView, BackButtonListener {
 
-    var flag = true
+    @Inject
+    lateinit var router: Router
+
+
+    private var flag = true
     private var vb: FragmentFactDayBinding? = null
     private val presenter by moxyPresenter {
         FactDayPresenter(
             AndroidSchedulers.mainThread(),
             RetrofitFactDayRepo(ApiHolder.api),
-            App.instance.router,
+            router,
             RoomFactDayCache(Database.getInstance())
         )
     }
-    var adapter: FactDayRVAdapter? = null
+    private var adapter: FactDayRVAdapter? = null
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
