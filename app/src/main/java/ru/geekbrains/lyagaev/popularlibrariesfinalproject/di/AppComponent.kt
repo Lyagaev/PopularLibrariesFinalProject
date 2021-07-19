@@ -15,9 +15,9 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
+        NavigationModule::class,
         AppModule::class,
         ApiModule::class,
-        NavigationModule::class,
         RepoModule::class,
         CacheModule::class
     ]
@@ -26,11 +26,5 @@ interface AppComponent {
     fun inject(mainActivity: MainActivity)
     fun inject(factDayPresenter: FactDayPresenter)
     fun inject(mainPresenter: MainPresenter)
-
-    //fun inject(usersFragment: UsersFragment)
-    //fun inject(userFragment: UserFragment)
-    //fun inject(mainActivity: MainActivity)
-    //fun inject(repositoryFragment: RepositoryFragment)
-
 }
 

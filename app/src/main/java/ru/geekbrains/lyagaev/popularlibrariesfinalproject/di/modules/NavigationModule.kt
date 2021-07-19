@@ -12,18 +12,6 @@ import javax.inject.Singleton
 @Module
 class NavigationModule {
 
-    /*private val cicerone: Cicerone<Router> = Cicerone.create()
-
-    @Provides
-    fun cicerone(): Cicerone<Router> = cicerone
-
-    @Provides
-    fun navigationHolder() = cicerone.navigatorHolder
-
-    @Provides
-    fun router() = cicerone.router*/
-
-
     var cicerone: Cicerone<Router> = Cicerone.create()
 
     @Provides
@@ -40,25 +28,5 @@ class NavigationModule {
     @Singleton
     @Provides
     fun screens(): IScreens = AndroidScreens()
-
-
-
-
-
-/*
-    @Provides
-    fun cicerone(): Cicerone<Router> = cicerone
-
-    private val cicerone: Cicerone<Router> by lazy {
-        Cicerone.create()
-    }
-    val navigatorHolder
-        get() = cicerone.getNavigatorHolder()
-
-    val router
-        get() = cicerone.router
-*/
-
-
 
 }

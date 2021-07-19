@@ -8,17 +8,16 @@ import javax.inject.Inject
 
 
 class MainPresenter(
-        //private val router: Router,
+        private val router: Router,
         private val screens: IScreens)
     : MvpPresenter<MainView>() {
 
-    @Inject
-    lateinit var router: Router
+
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
-        router.replaceScreen(screens.getFragment())
+        router?.replaceScreen(screens.getFragment())
     }
 
     fun backClick() {
